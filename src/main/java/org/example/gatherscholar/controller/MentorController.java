@@ -35,4 +35,12 @@ public class MentorController {
     public void deleteMentorById(@PathVariable Long id) {
         mentorLogic.deleteMentor(id);
     }
+
+    @PutMapping("/{id}")
+    public Mentor updateMentor(@PathVariable Long id, @RequestBody Mentor mentor) {
+        {
+            mentor.setId(id);
+            return mentorLogic.saveMentor(mentor);
+        }
+    }
 }

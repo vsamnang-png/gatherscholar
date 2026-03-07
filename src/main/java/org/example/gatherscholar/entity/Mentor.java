@@ -47,4 +47,7 @@ public class Mentor {
         this.email = email;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
