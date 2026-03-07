@@ -1,9 +1,9 @@
 package org.example.gatherscholar.entity;
 
-import com.fasterxml.jackson.annotation.JsonTypeId;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
@@ -29,7 +29,7 @@ public class User {
     public String getName() {
         return name;
     }
-    public void SetName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
