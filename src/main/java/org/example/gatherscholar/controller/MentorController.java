@@ -25,4 +25,14 @@ public class MentorController {
     public Mentor createMentor(@RequestBody Mentor mentor) {
         return mentorLogic.saveMentor(mentor);
     }
+
+    @GetMapping("/{id}")
+    public Mentor getMentorById(@PathVariable Long id) {
+        return mentorLogic.getMentorById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteMentorById(@PathVariable Long id) {
+        mentorLogic.deleteMentor(id);
+    }
 }
