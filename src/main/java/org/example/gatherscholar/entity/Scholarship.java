@@ -10,6 +10,7 @@ public class Scholarship {
     private Long id;
 
     private String name;
+    private String provider;
     private String country;
     private String level;
     private String deadline;
