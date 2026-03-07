@@ -25,4 +25,24 @@ public class ScholarshipController {
     public Scholarship createScholarship(@RequestBody Scholarship scholarship) {
         return scholarshipLogic.saveScholarship(scholarship);
     }
+
+    @GetMapping("/country/{country}")
+    public List<Scholarship> getByCountry(@PathVariable String country) {
+        return scholarshipLogic.getByCountry(country);
+    }
+
+    @GetMapping("/provider/{provider}")
+    public List<Scholarship> getByProvider(@PathVariable String provider) {
+        return scholarshipLogic.getByProvider(provider);
+    }
+
+    @GetMapping("/search")
+    public List<Scholarship> searchByName(@RequestParam String name) {
+        return scholarshipLogic.searchByName(name);
+    }
+
+    @GetMapping("/{id}")
+    public Scholarship getScholarshipById(@PathVariable Long id) {
+        return scholarshipLogic.getScholarshipById(id);
+    }
 }

@@ -22,4 +22,20 @@ public class ScholarshipLogic {
     public Scholarship saveScholarship(Scholarship scholarship) {
         return scholarshipRepository.save(scholarship);
     }
+
+    public List<Scholarship> getByCountry(String country) {
+        return scholarshipRepository.findByCountry(country);
+    }
+
+    public List<Scholarship> getByProvider(String provider) {
+        return scholarshipRepository.findByProvider(provider);
+    }
+
+    public List<Scholarship> searchByName(String name) {
+        return scholarshipRepository.findByNameContaining(name);
+    }
+
+    public Scholarship getScholarshipById(Long id) {
+        return scholarshipRepository.findById(id).orElse(null);
+    }
 }
