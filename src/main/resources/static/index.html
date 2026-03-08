@@ -1,117 +1,223 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>GatherScholar</title>
+    <title>Scholarship Finder</title>
+
     <style>
-        body {
+
+        body{
             font-family: Arial;
-            background:#f4f6f8;
-            margin:0;
+            background:#f5f6fa;
             padding:20px;
         }
 
-        h1{
-            text-align: center;
-            color:#333;
+        .container{
+            max-width:900px;
+            margin:auto;
+            background:white;
+            padding:20px;
+            border-radius:8px;
+            box-shadow:0 3px 10px rgba(0,0,0,0.1);
         }
 
-        .container{
-            max-width:800px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        h1{
+            text-align:center;
         }
 
         input{
-            padding: 8px;
-            margin: 5px;
+            padding:8px;
+            margin:5px;
         }
 
         button{
-            padding: 8px 12px;
-            background: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            padding:8px 12px;
+            background:#3498db;
+            border:none;
+            color:white;
+            border-radius:4px;
+            cursor:pointer;
         }
 
         button:hover{
-            background: #0056b3;
+            background:#2980b9;
         }
 
         table{
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
+            width:100%;
+            margin-top:20px;
+            border-collapse:collapse;
         }
 
-        th, td{
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
+        th,td{
+            padding:10px;
+            border-bottom:1px solid #ddd;
         }
 
-        th{
-            background: #f0f0f0;
-        }
     </style>
 </head>
 
 <body>
 
-<h1>GatherScholar</h1>
-
 <div class="container">
 
-    <h3>Search Scholarship</h3>
+    <h1>Gatherscholar</h1>
 
-    <input id = "name" placeholder = "Search by me">
-    <button onClick="search()">Search</button>
+    <h3>Add Scholarship</h3>
 
-    <tabel id="table">
+    <input id="name" placeholder="Name">
+    <input id="country" placeholder="Country">
+    <input id="level" placeholder="Level">
+    <input id="deadline" placeholder="Deadline">
+
+    <button onclick="addScholarship()">Add</button>
+
+    <hr>
+
+    <h3>Search</h3>
+
+    <input id="searchName" placeholder="Search by name">
+    <button onclick="searchName()">Search</button>
+
+    <input id="searchCountry" placeholder="Search by country">
+    <button onclick="searchCountry()">Search</button>
+
+    <button onclick="loadAll()">View All</button>
+
+    <table>
+
         <thead>
         <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>Country</th>
             <th>Level</th>
             <th>Deadline</th>
+            <th>Actions</th>
         </tr>
         </thead>
 
-        <tbody id="results"></tbody>
-    </tabel>
+        <tbody id="tableBody"></tbody>
+
+    </table>
 
 </div>
 
 <script>
 
-function search() {
-    const name = document.getElementById("name").value;
+    function loadAll(){
 
-    fetch("/scholarships/search?name=" + name)
-        .then(response => response.json())
-        .then(data => {
-            const results = document.getElementaryById("results");
-            results.innerHTML = "";
+        fetch("/scholarships")
+            .then(res => res.json())
+            .then(data => showTable(data))
 
-            data.forEach(s => {
-                const row = `
-                <tr>
-                <td>${s.name}</td>
-                <td>${s.country}</td>
-                <td>${s.level}</td>
-                <td>${s.deadline}</td>
+    }
 
-                </tr>
-                `;
+    function searchName(){
 
-                results.innerHTML += row;
-            });
-        });
-}
+        const name=document.getElementById("searchName").value
+
+        fetch("/scholarships/search?name="+name)
+            .then(res=>res.json())
+            .then(data=>showTable(data))
+
+    }
+
+    function searchCountry(){
+
+        const country=document.getElementById("searchCountry").value
+
+        fetch("/scholarships/country/"+country)
+            .then(res=>res.json())
+            .then(data=>showTable(data))
+
+    }
+
+    function addScholarship(){
+
+        const scholarship={
+
+            name:document.getElementById("name").value,
+            country:document.getElementById("country").value,
+            level:document.getElementById("level").value,
+            deadline:document.getElementById("deadline").value
+
+        }
+
+        fetch("/scholarships",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(scholarship)
+        })
+            .then(()=>loadAll())
+
+    }
+
+    function deleteScholarship(id){
+
+        fetch("/scholarships/"+id,{
+            method:"DELETE"
+        })
+            .then(()=>loadAll())
+
+    }
+
+    function updateScholarship(id){
+
+        const name=prompt("New name")
+        const country=prompt("New country")
+        const level=prompt("New level")
+        const deadline=prompt("New deadline")
+
+        const scholarship={
+            name:name,
+            country:country,
+            level:level,
+            deadline:deadline
+        }
+
+        fetch("/scholarships/"+id,{
+            method:"PUT",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(scholarship)
+        })
+            .then(()=>loadAll())
+
+    }
+
+    function showTable(data){
+
+        const table=document.getElementById("tableBody")
+
+        table.innerHTML=""
+
+        data.forEach(s=>{
+
+            table.innerHTML+=`
+
+<tr>
+<td>${s.id}</td>
+<td>${s.name}</td>
+<td>${s.country}</td>
+<td>${s.level}</td>
+<td>${s.deadline}</td>
+<td>
+<button onclick="updateScholarship(${s.id})">Edit</button>
+<button onclick="deleteScholarship(${s.id})">Delete</button>
+</td>
+</tr>
+
+`
+
+        })
+
+    }
+
+    loadAll()
+
 </script>
 
 </body>
