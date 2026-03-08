@@ -45,4 +45,14 @@ public class ScholarshipController {
     public Scholarship getScholarshipById(@PathVariable Long id) {
         return scholarshipLogic.getScholarshipById(id);
     }
+
+    @PutMapping("/{id}")
+    public Scholarship updateScholarship(@PathVariable Long id, @RequestBody Scholarship scholarship) {
+        return scholarshipLogic.updateScholarship(id, scholarship);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteScholarship(@PathVariable Long id) {
+        scholarshipLogic.deleteScholarship(id);
+    }
 }

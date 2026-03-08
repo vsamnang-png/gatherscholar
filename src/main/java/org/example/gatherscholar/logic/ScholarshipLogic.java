@@ -38,4 +38,22 @@ public class ScholarshipLogic {
     public Scholarship getScholarshipById(Long id) {
         return scholarshipRepository.findById(id).orElse(null);
     }
+
+    public Scholarship updateScholarship(Long id, Scholarship updateScholarship) {
+        Scholarship scholarship = scholarshipRepository.findById(id).orElse(null);
+
+        if (scholarship != null) {
+            scholarship.setName(updateScholarship.getName());
+            scholarship.setCountry(updateScholarship.getCountry());
+            scholarship.setLevel(updateScholarship.getLevel());
+            scholarship.setDeadline(updateScholarship.getDeadline());
+            return scholarshipRepository.save(scholarship);
+        }
+
+        return null;
+    }
+
+    public void deleteScholarship(Long id) {
+        scholarshipRepository.deleteById(id);
+    }
 }
