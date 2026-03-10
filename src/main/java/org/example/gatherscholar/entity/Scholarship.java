@@ -13,6 +13,7 @@ public class Scholarship {
     private String country;
     private String level;
     private String deadline;
+    private String provider;
 
     public Scholarship() {}
 
