@@ -27,7 +27,8 @@ Publishing tool
 **Database Configuration**
 It is defined in src/main/resources/application.properties
 
-**Database Structure Figure**
+**Database Structure Figure**\
+
 Scholarship
 - ID
 - Name
