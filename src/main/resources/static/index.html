@@ -95,6 +95,7 @@
             <th>Level</th>
             <th>Deadline</th>
             <th>Actions</th>
+            <th>Bookmark</th>
         </tr>
         </thead>
 
@@ -190,6 +191,20 @@
 
     }
 
+    function bookmark(id) {
+
+        let bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
+
+        if(!bookmarks.includes(id)){
+            bookmarks.push(id);
+            localStorage.setItem("bookmarks",JSON.stringify(bookmarks));
+            alert("bookmarked!");
+        }
+        else{
+            alert("Already bookmarked!");
+        }
+    }
+
     function showTable(data){
 
         const table=document.getElementById("tableBody")
@@ -210,8 +225,10 @@
 <button onclick="updateScholarship(${s.id})">Edit</button>
 <button onclick="deleteScholarship(${s.id})">Delete</button>
 </td>
+<td>
+<button onclick="bookmark(${s.id})">STAR</button>
+</td>
 </tr>
-
 `
 
         })
