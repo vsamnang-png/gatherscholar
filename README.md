@@ -48,5 +48,7 @@ To deploy the project (short documentation):
 
 Link to deployment on Railway: https://gatherscholar-production.up.railway.app/
 
+Demo Video: https://drive.google.com/file/d/1IqYSndLJECnbs4xAXdnlh-YcwUTyRe7F/view
+
 AI Disclosure
 AI was used in assistance of creating this project such as organizing and debuggin problems.
