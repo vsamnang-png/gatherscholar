@@ -9,18 +9,22 @@ GatherScholar is a platform that collect all scholarship opportunities to put on
 - Search scholarship by name and country
 
 **Technology Used**
+
 Backend
 - Java 17
 - Spring Boot
 - Spring Data JPA
 - Hibernate
 - Maven
+
 Database
 - PostgreSQL
+
 Development Tools
 - Intellij IDEA
 - Git & GitHub
 - Postman (API testing)
+
 Publishing tool
 - Railway
 
