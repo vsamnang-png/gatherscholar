@@ -36,7 +36,7 @@ public class ScholarshipLogic {
     }
 
     public Scholarship getScholarshipById(Long id) {
-        return scholarshipRepository.findById(id).orElse(null);
+        return scholarshipRepository.findById(id).orElseThrow(() -> new RuntimeException("Scholarship not found"));
     }
 
     public Scholarship updateScholarship(Long id, Scholarship updateScholarship) {
