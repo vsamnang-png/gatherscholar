@@ -36,6 +36,16 @@ public class ScholarshipController {
         return scholarshipLogic.getByProvider(provider);
     }
 
+    @GetMapping("/level/{level}")
+    public List<Scholarship> getByLevel(@PathVariable String level) {
+        return scholarshipLogic.getByLevel(level);
+    }
+
+    @GetMapping("/count")
+    public long countScholarships() {
+        return scholarshipLogic.countScholarships();
+    }
+
     @GetMapping("/search")
     public List<Scholarship> searchByName(@RequestParam String name) {
         return scholarshipLogic.searchByName(name);
