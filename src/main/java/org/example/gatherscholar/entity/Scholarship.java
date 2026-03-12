@@ -14,6 +14,8 @@ public class Scholarship {
     private String level;
     private String deadline;
     private String provider;
+    private String amount;
+    private String percent;
 
     public Scholarship() {}
 
@@ -61,4 +63,24 @@ public class Scholarship {
         this.deadline = deadline;
     }
 
+    public String getProvider() {
+        return provider;
+    }
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public String getPercent() {
+        return percent;
+    }
+    public void setPercent(String percent) {
+        this.percent = percent;
+    }
 }
